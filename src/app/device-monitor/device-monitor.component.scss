@@ -201,8 +201,37 @@
     padding-bottom: 0.5rem;
   }
   
-  .gauge-section {
+  .control-section {
     margin-bottom: 2rem;
+    
+    .input-container {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-bottom: 1rem;
+      
+      .control-input {
+        flex: 1;
+        padding: 0.75rem;
+        border: 1px solid #ced4da;
+        border-radius: 4px;
+        font-size: 14px;
+        font-weight: 500;
+        
+        &:focus {
+          outline: none;
+          border-color: #007bff;
+          box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25);
+        }
+      }
+      
+      .unit-label {
+        font-size: 14px;
+        font-weight: 600;
+        color: #666;
+        min-width: 40px;
+      }
+    }
     
     .gauge-container {
       display: flex;
@@ -222,6 +251,14 @@
           background: linear-gradient(90deg, #007bff, #0056b3);
           border-radius: 12px;
           transition: width 0.3s ease;
+          
+          &.torque-fill {
+            background: linear-gradient(90deg, #28a745, #1e7e34);
+          }
+          
+          &.vibration-fill {
+            background: linear-gradient(90deg, #ffc107, #e0a800);
+          }
         }
       }
       
@@ -233,24 +270,14 @@
         text-align: right;
       }
     }
-  }
-  
-  .temperature-section {
-    margin-bottom: 2rem;
     
     .temperature-display {
       display: flex;
-      justify-content: space-between;
+      justify-content: center;
       align-items: center;
       padding: 1rem;
       background: #f8f9fa;
       border-radius: 6px;
-      
-      .temp-range {
-        font-size: 14px;
-        color: #666;
-        font-weight: 500;
-      }
       
       .temp-value {
         font-size: 28px;
@@ -300,31 +327,65 @@
     }
   }
   
-  .historical-section {
+  .export-section {
     margin-bottom: 2rem;
     
-    .data-controls {
-      display: flex;
-      gap: 0.75rem;
-      align-items: center;
-      flex-wrap: wrap;
-      
-      select {
-        padding: 0.5rem 0.75rem;
-        border: 1px solid #ced4da;
-        border-radius: 4px;
-        font-size: 14px;
-        background: white;
+    .export-controls {
+      .export-options {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 0.75rem;
+        margin-bottom: 1rem;
         
-        &:focus {
-          outline: none;
-          border-color: #007bff;
-          box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25);
+        label {
+          display: flex;
+          align-items: center;
+          padding: 0.5rem;
+          background: #f8f9fa;
+          border-radius: 4px;
+          font-size: 14px;
+          font-weight: 500;
+          cursor: pointer;
+          transition: background-color 0.2s ease;
+          
+          &:hover {
+            background: #e9ecef;
+          }
+          
+          input[type="checkbox"] {
+            margin-right: 8px;
+            transform: scale(1.2);
+            accent-color: #007bff;
+          }
         }
       }
       
-      .export-btn {
-        padding: 0.5rem 1rem;
+      .export-settings {
+        display: flex;
+        gap: 0.75rem;
+        margin-bottom: 1rem;
+        flex-wrap: wrap;
+        
+        select {
+          padding: 0.5rem 0.75rem;
+          border: 1px solid #ced4da;
+          border-radius: 4px;
+          font-size: 14px;
+          background: white;
+          flex: 1;
+          min-width: 120px;
+          
+          &:focus {
+            outline: none;
+            border-color: #007bff;
+            box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25);
+          }
+        }
+      }
+      
+      .generate-btn {
+        width: 100%;
+        padding: 0.75rem 1rem;
         background: #28a745;
         color: white;
         border: none;
@@ -337,6 +398,7 @@
         &:hover {
           background: #218838;
           transform: translateY(-1px);
+          box-shadow: 0 4px 8px rgba(40, 167, 69, 0.3);
         }
       }
     }
@@ -404,4 +466,46 @@
 
 .temp-value {
   animation: pulse 2s infinite;
+}
+
+// Additional responsive styles for new controls
+@media (max-width: 900px) {
+  .control-section {
+    .input-container {
+      flex-direction: column;
+      align-items: stretch;
+      gap: 0.5rem;
+      
+      .unit-label {
+        text-align: center;
+        min-width: auto;
+      }
+    }
+    
+    .gauge-container {
+      flex-direction: column;
+      gap: 0.5rem;
+      
+      .gauge-value {
+        text-align: center;
+        min-width: auto;
+      }
+    }
+  }
+  
+  .export-section {
+    .export-controls {
+      .export-options {
+        grid-template-columns: 1fr;
+      }
+      
+      .export-settings {
+        flex-direction: column;
+        
+        select {
+          min-width: auto;
+        }
+      }
+    }
+  }
 }
